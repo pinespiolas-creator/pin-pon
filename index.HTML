@@ -195,14 +195,25 @@
         </div>
 
         <button class="button button-primary full-button" type="submit">
-          Preparar pedido por Instagram ↗
+          Preparar pedido y ver el texto ↗
         </button>
+
+        <div id="pedido-preparado" class="prepared-order" hidden>
+          <strong>Tu pedido está listo</strong>
+          <p>Copiá este texto y pegalo en el chat de Pin-Pon. Si es personalizado, adjuntá también la imagen.</p>
+          <textarea id="pedido-mensaje" class="order-message" rows="9" readonly aria-label="Texto del pedido"></textarea>
+          <p id="estado-copia" class="copy-status" aria-live="polite"></p>
+          <button id="copiar-pedido" class="button button-secondary full-button" type="button">Copiar texto</button>
+          <a class="button button-primary full-button instagram-link" href="https://ig.me/m/haypinespiolas" target="_blank" rel="noopener noreferrer">
+            Abrir chat de Pin-Pon en Instagram ↗
+          </a>
+        </div>
 
         <div class="order-instructions">
           <strong>Antes de enviarlo por Instagram:</strong>
           <ol>
-            <li>Se abrirá el chat de Pin-Pon y se copiarán los datos del pedido.</li>
-            <li>Pegá el texto en el chat.</li>
+            <li>Cuando prepares el pedido, el texto aparecerá acá abajo.</li>
+            <li>Copialo y pegalo en el chat de Pin-Pon.</li>
             <li>Si elegiste un pin personalizado, adjuntá manualmente la imagen.</li>
             <li>Revisá el mensaje y tocá <strong>Enviar</strong>.</li>
           </ol>

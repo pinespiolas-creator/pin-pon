@@ -2,12 +2,14 @@
    PIN-PON — FUNCIONAMIENTO DEL PEDIDO
 ========================================= */
 
-const INSTAGRAM_URL = "https://ig.me/m/haypinespiolas";
-
 const form = document.getElementById("pedido-form");
 const tipo = document.getElementById("tipo");
 const cantidad = document.getElementById("cantidad");
 const total = document.getElementById("total");
+const pedidoPreparado = document.getElementById("pedido-preparado");
+const pedidoMensaje = document.getElementById("pedido-mensaje");
+const estadoCopia = document.getElementById("estado-copia");
+const copiarPedido = document.getElementById("copiar-pedido");
 
 const imagenInput = document.getElementById("imagen");
 const imagenCampo = document.getElementById("imagen-campo");
@@ -17,6 +19,25 @@ const nombreImagen = document.getElementById("nombre-imagen");
 
 const disenoCampo = document.getElementById("diseno-campo");
 const disenoInput = document.getElementById("diseno");
+
+function copiarTextoPedido() {
+  pedidoMensaje.focus();
+  pedidoMensaje.select();
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(pedidoMensaje.value)
+      .then(function () {
+        estadoCopia.textContent = "Texto copiado. Ahora pegalo en el chat de Instagram.";
+      })
+      .catch(function () {
+        estadoCopia.textContent = "No se pudo copiar automáticamente. Seleccioná el texto y apretá Ctrl+C.";
+      });
+  } else {
+    estadoCopia.textContent = "Seleccioná el texto y apretá Ctrl+C para copiarlo.";
+  }
+}
+
+copiarPedido.addEventListener("click", copiarTextoPedido);
 
 const PRECIO_PERSONALIZADO = 2500;
 const PRECIO_DISPONIBLE = 2000;
@@ -193,24 +214,10 @@ form.addEventListener("submit", function (evento) {
   mensaje.push("", "¡Espero la confirmación del pedido!");
 
   const textoPedido = mensaje.join("\n");
-  window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer");
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(textoPedido)
-      .then(function () {
-        alert(
-          "Copiamos los datos del pedido. Pegalo en el chat de Pin-Pon en Instagram. " +
-          (tipo.value === "Personalizado"
-            ? "Acordate de adjuntar manualmente la imagen elegida."
-            : "")
-        );
-      })
-      .catch(function () {
-        prompt("Copiá este pedido y pegalo en un mensaje a @haypinespiolas:", textoPedido);
-      });
-  } else {
-    prompt("Copiá este pedido y pegalo en un mensaje a @haypinespiolas:", textoPedido);
-  }
+  pedidoMensaje.value = textoPedido;
+  pedidoPreparado.hidden = false;
+  estadoCopia.textContent = "El texto del pedido está listo. Podés copiarlo o seleccionarlo manualmente.";
+  pedidoPreparado.scrollIntoView({ behavior: "smooth", block: "center" });
 
 });
 

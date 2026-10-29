@@ -705,6 +705,51 @@ button {
   margin-top: 4px;
 }
 
+.prepared-order {
+  margin-top: 20px;
+  padding: 16px;
+  background: #101014;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 12px;
+}
+
+.prepared-order > strong {
+  color: #d6c8ff;
+  font-size: 15px;
+}
+
+.prepared-order > p:not(.copy-status) {
+  margin: 6px 0 12px;
+  color: var(--gray);
+  font-size: 12px;
+}
+
+.order-message {
+  display: block;
+  width: 100%;
+  min-height: 180px;
+  padding: 12px;
+  background: #0b0b0e;
+  color: var(--white);
+  border: 1px solid #303039;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.copy-status {
+  min-height: 20px;
+  margin: 8px 0;
+  color: #d6c8ff;
+  font-size: 12px;
+}
+
+.instagram-link {
+  margin-top: 10px;
+}
+
 /* BANNER FINAL */
 
 .final-banner {
