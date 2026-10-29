@@ -2,7 +2,7 @@
    PIN-PON — FUNCIONAMIENTO DEL PEDIDO
 ========================================= */
 
-const WHATSAPP_NUMBER = "5491132185743";
+const INSTAGRAM_URL = "https://www.instagram.com/haypinespiolas/";
 
 const form = document.getElementById("pedido-form");
 const tipo = document.getElementById("tipo");
@@ -126,7 +126,7 @@ document.querySelectorAll(".btn-producto").forEach(function (boton) {
   });
 });
 
-/* Envío del pedido por WhatsApp */
+/* Preparar pedido para enviar por Instagram */
 
 form.addEventListener("submit", function (evento) {
   evento.preventDefault();
@@ -189,24 +189,26 @@ form.addEventListener("submit", function (evento) {
 
   mensaje.push("", "¡Espero la confirmación del pedido!");
 
-  const numeroLimpio = WHATSAPP_NUMBER.replace(/\D/g, "");
+  const textoPedido = mensaje.join("\n");
+  window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer");
 
-  if (numeroLimpio.length < 10) {
-    alert("Revisá el número de WhatsApp configurado en script.js.");
-    return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(textoPedido)
+      .then(function () {
+        alert(
+          "Copiamos los datos del pedido. En Instagram, abrí el mensaje para @haypinespiolas y pegalo. " +
+          (tipo.value === "Personalizado"
+            ? "Acordate de adjuntar manualmente la imagen elegida."
+            : "")
+        );
+      })
+      .catch(function () {
+        prompt("Copiá este pedido y pegalo en un mensaje a @haypinespiolas:", textoPedido);
+      });
+  } else {
+    prompt("Copiá este pedido y pegalo en un mensaje a @haypinespiolas:", textoPedido);
   }
 
-  const url = "https://wa.me/" + numeroLimpio +
-    "?text=" + encodeURIComponent(mensaje.join("\n"));
-
-  window.open(url, "_blank", "noopener,noreferrer");
-
-  if (tipo.value === "Personalizado") {
-    alert(
-      "Se abrirá WhatsApp con los datos del pedido. " +
-      "Acordate de adjuntar la imagen antes de enviar el mensaje."
-    );
-  }
 });
 
 /* Estado inicial */
