@@ -681,6 +681,30 @@ button {
   margin-top: 14px;
 }
 
+.order-instructions {
+  padding: 15px 16px;
+  margin-top: 18px;
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  border-radius: 12px;
+  color: #e4e4e7;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.order-instructions > strong {
+  color: #d6c8ff;
+}
+
+.order-instructions ol {
+  padding-left: 21px;
+  margin-top: 8px;
+}
+
+.order-instructions li + li {
+  margin-top: 4px;
+}
+
 /* BANNER FINAL */
 
 .final-banner {

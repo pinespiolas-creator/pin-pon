@@ -2,7 +2,7 @@
    PIN-PON — FUNCIONAMIENTO DEL PEDIDO
 ========================================= */
 
-const INSTAGRAM_URL = "https://www.instagram.com/haypinespiolas/";
+const INSTAGRAM_URL = "https://ig.me/m/haypinespiolas";
 
 const form = document.getElementById("pedido-form");
 const tipo = document.getElementById("tipo");
@@ -43,9 +43,11 @@ function actualizarTotal() {
   });
 }
 
-function limpiarImagen() {
+function limpiarImagen(vaciarCampo = true) {
   imagenSeleccionada = null;
-  imagenInput.value = "";
+  if (vaciarCampo) {
+    imagenInput.value = "";
+  }
   vistaPrevia.hidden = true;
   imagenPreview.removeAttribute("src");
   nombreImagen.textContent = "";
@@ -80,7 +82,8 @@ cantidad.addEventListener("input", actualizarTotal);
 imagenInput.addEventListener("change", function () {
   const archivo = imagenInput.files[0];
 
-  limpiarImagen();
+  // Limpiar la vista anterior sin vaciar el archivo recién elegido.
+  limpiarImagen(false);
 
   if (!archivo) return;
 
@@ -196,7 +199,7 @@ form.addEventListener("submit", function (evento) {
     navigator.clipboard.writeText(textoPedido)
       .then(function () {
         alert(
-          "Copiamos los datos del pedido. En Instagram, abrí el mensaje para @haypinespiolas y pegalo. " +
+          "Copiamos los datos del pedido. Pegalo en el chat de Pin-Pon en Instagram. " +
           (tipo.value === "Personalizado"
             ? "Acordate de adjuntar manualmente la imagen elegida."
             : "")
