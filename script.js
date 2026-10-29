@@ -11,12 +11,8 @@ const pedidoMensaje = document.getElementById("pedido-mensaje");
 const estadoCopia = document.getElementById("estado-copia");
 const copiarPedido = document.getElementById("copiar-pedido");
 
-const imagenInput = document.getElementById("imagen");
-const imagenCampo = document.getElementById("imagen-campo");
-const vistaPrevia = document.getElementById("vista-previa");
-const imagenPreview = document.getElementById("imagen-preview");
-const nombreImagen = document.getElementById("nombre-imagen");
-
+const personalizadoCampo = document.getElementById("personalizado-campo");
+const detallePersonalizado = document.getElementById("detalle-personalizado");
 const disenoCampo = document.getElementById("diseno-campo");
 const disenoInput = document.getElementById("diseno");
 
@@ -42,9 +38,6 @@ copiarPedido.addEventListener("click", copiarTextoPedido);
 const PRECIO_PERSONALIZADO = 2500;
 const PRECIO_DISPONIBLE = 2000;
 
-let imagenSeleccionada = null;
-let imagenObjectURL = null;
-
 function obtenerPrecio() {
   return tipo.value === "Personalizado"
     ? PRECIO_PERSONALIZADO
@@ -64,67 +57,19 @@ function actualizarTotal() {
   });
 }
 
-function limpiarImagen(vaciarCampo = true) {
-  imagenSeleccionada = null;
-  if (vaciarCampo) {
-    imagenInput.value = "";
-  }
-  vistaPrevia.hidden = true;
-  imagenPreview.removeAttribute("src");
-  nombreImagen.textContent = "";
-
-  if (imagenObjectURL) {
-    URL.revokeObjectURL(imagenObjectURL);
-    imagenObjectURL = null;
-  }
-}
-
 function actualizarFormulario() {
   const esPersonalizado = tipo.value === "Personalizado";
 
-  imagenCampo.hidden = !esPersonalizado;
+  personalizadoCampo.hidden = !esPersonalizado;
   disenoCampo.hidden = esPersonalizado;
 
-  imagenInput.required = esPersonalizado;
   disenoInput.required = !esPersonalizado;
-
-  if (!esPersonalizado) {
-    limpiarImagen();
-  }
 
   actualizarTotal();
 }
 
 tipo.addEventListener("change", actualizarFormulario);
 cantidad.addEventListener("input", actualizarTotal);
-
-/* Vista previa de la imagen personalizada */
-
-imagenInput.addEventListener("change", function () {
-  const archivo = imagenInput.files[0];
-
-  // Limpiar la vista anterior sin vaciar el archivo recién elegido.
-  limpiarImagen(false);
-
-  if (!archivo) return;
-
-  if (!archivo.type.startsWith("image/")) {
-    alert("Elegí un archivo de imagen válido.");
-    return;
-  }
-
-  if (archivo.size > 10 * 1024 * 1024) {
-    alert("La imagen pesa más de 10 MB. Elegí una imagen más liviana.");
-    return;
-  }
-
-  imagenSeleccionada = archivo;
-  imagenObjectURL = URL.createObjectURL(archivo);
-
-  imagenPreview.src = imagenObjectURL;
-  nombreImagen.textContent = archivo.name;
-  vistaPrevia.hidden = false;
-});
 
 /* Botones del catálogo: elegir diseño */
 
@@ -169,12 +114,6 @@ form.addEventListener("submit", function (evento) {
     return;
   }
 
-  if (tipo.value === "Personalizado" &&
-      (!imagenSeleccionada || !imagenInput.files.length)) {
-    alert("Seleccioná la imagen que querés convertir en pin.");
-    return;
-  }
-
   if (tipo.value !== "Personalizado" && !disenoInput.value.trim()) {
     alert("Elegí o escribí el diseño que querés comprar.");
     disenoInput.focus();
@@ -202,11 +141,10 @@ form.addEventListener("submit", function (evento) {
   ];
 
   if (tipo.value === "Personalizado") {
-    mensaje.push(
-      "",
-      "Imagen elegida: " + imagenSeleccionada.name,
-      "Adjuntaré la imagen al chat para confirmar el diseño."
-    );
+    const detalle = detallePersonalizado.value.trim();
+    mensaje.push("");
+    if (detalle) mensaje.push("Idea para el diseño: " + detalle);
+    mensaje.push("Adjuntaré la imagen directamente en este chat de Instagram.");
   } else {
     mensaje.push("", "Diseño elegido: " + disenoInput.value.trim());
   }

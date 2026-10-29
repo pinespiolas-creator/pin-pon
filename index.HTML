@@ -166,17 +166,10 @@
           <option value="Diseño disponible">Diseño disponible — $2.000</option>
         </select>
 
-        <div id="imagen-campo">
-          <label for="imagen">Subí la imagen para tu pin</label>
-          <input id="imagen" name="imagen" type="file"
-            accept="image/*">
-          <p class="input-help">
-            Elegí una imagen de tu celular. Después adjuntala manualmente en el mensaje de Instagram.
-          </p>
-          <div id="vista-previa" class="image-preview" hidden>
-            <img id="imagen-preview" alt="Vista previa de tu diseño">
-            <span id="nombre-imagen"></span>
-          </div>
+        <div id="personalizado-campo">
+          <label for="detalle-personalizado">¿Qué imagen o idea querés para tu pin? (opcional)</label>
+          <input id="detalle-personalizado" name="detalle-personalizado" type="text"
+            placeholder="Por ejemplo: una foto de mi gato" maxlength="150">
         </div>
 
         <div id="diseno-campo" hidden>
@@ -200,7 +193,7 @@
 
         <div id="pedido-preparado" class="prepared-order" hidden>
           <strong>Tu pedido está listo</strong>
-          <p>Copiá este texto y pegalo en el chat de Pin-Pon. Si es personalizado, adjuntá también la imagen.</p>
+          <p>Copiá este texto y pegalo en el chat de Pin-Pon. La imagen se adjunta directamente en Instagram.</p>
           <textarea id="pedido-mensaje" class="order-message" rows="9" readonly aria-label="Texto del pedido"></textarea>
           <p id="estado-copia" class="copy-status" aria-live="polite"></p>
           <button id="copiar-pedido" class="button button-secondary full-button" type="button">Copiar texto</button>
@@ -214,7 +207,7 @@
           <ol>
             <li>Cuando prepares el pedido, el texto aparecerá acá abajo.</li>
             <li>Copialo y pegalo en el chat de Pin-Pon.</li>
-            <li>Si elegiste un pin personalizado, adjuntá manualmente la imagen.</li>
+            <li>Si elegiste un pin personalizado, adjuntá la imagen directamente en Instagram.</li>
             <li>Revisá el mensaje y tocá <strong>Enviar</strong>.</li>
           </ol>
         </div>
